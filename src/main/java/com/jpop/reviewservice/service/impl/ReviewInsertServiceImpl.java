@@ -10,11 +10,17 @@ import org.springframework.stereotype.Service;
 public class ReviewInsertServiceImpl implements ReviewInsertService {
 
     @Autowired
-    ReviewInsertRepository reviewInsertRepository;
+    private ReviewInsertRepository reviewInsertRepository;
 
     @Override
     public Review addReview(long productId, Review review) {
         review.setProductId(productId);
         return reviewInsertRepository.save(review);
+    }
+
+    @Override
+    public void updateReview(long productId, Review review) {
+        reviewInsertRepository.findById(review.getId())
+                .ifPresentOrElse(reviewData -> addReview(productId, reviewData), Exception::new);
     }
 }

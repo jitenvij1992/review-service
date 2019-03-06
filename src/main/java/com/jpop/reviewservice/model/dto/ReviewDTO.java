@@ -1,7 +1,6 @@
 package com.jpop.reviewservice.model.dto;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data

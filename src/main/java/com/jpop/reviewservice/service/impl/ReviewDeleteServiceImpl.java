@@ -9,10 +9,11 @@ import org.springframework.stereotype.Service;
 public class ReviewDeleteServiceImpl implements ReviewDeleteService {
 
     @Autowired
-    ReviewDeleteRepository reviewDeleteRepository;
+    private ReviewDeleteRepository reviewDeleteRepository;
 
     @Override
     public void deleteReview(long id, long productId) {
-        reviewDeleteRepository.deleteByIdAndProductId(id, productId);
+        reviewDeleteRepository.findByIdAndProductId(id, productId)
+                .ifPresentOrElse(review -> reviewDeleteRepository.deleteByIdAndProductId(id, productId), Exception::new);
     }
 }

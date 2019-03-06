@@ -7,6 +7,7 @@ import com.jpop.reviewservice.service.ReviewDetailService;
 import com.jpop.reviewservice.service.ReviewInsertService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,8 +59,8 @@ public class ReviewServiceController {
     }
 
     @DeleteMapping(value = "/{productId}/reviews/{reviewId}")
-    public ResponseEntity<String> deleteReview(@PathVariable("productId") long productId, @PathVariable("reviewId") long reviewId) {
+    public ResponseEntity deleteReview(@PathVariable("productId") long productId, @PathVariable("reviewId") long reviewId) {
         reviewDeleteService.deleteReview(reviewId, productId);
-        return null;
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Successfully deleted product.");
     }
 }
