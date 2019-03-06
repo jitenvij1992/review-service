@@ -1,6 +1,7 @@
 package com.jpop.reviewservice.service.impl;
 
 import com.jpop.reviewservice.dao.ReviewInsertRepository;
+import com.jpop.reviewservice.exception.InvalidReviewException;
 import com.jpop.reviewservice.model.Review;
 import com.jpop.reviewservice.service.ReviewInsertService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,6 @@ public class ReviewInsertServiceImpl implements ReviewInsertService {
     @Override
     public void updateReview(long productId, Review review) {
         reviewInsertRepository.findById(review.getId())
-                .ifPresentOrElse(reviewData -> addReview(productId, reviewData), Exception::new);
+                .ifPresentOrElse(reviewData -> addReview(productId, reviewData), () -> new InvalidReviewException("Review is invalid"));
     }
 }
