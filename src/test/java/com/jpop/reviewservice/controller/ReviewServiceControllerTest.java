@@ -63,7 +63,7 @@ public class ReviewServiceControllerTest {
     }
 
     @Test
-    public void deleteReview() throws Exception {
+    public void deleteReviewTest() throws Exception {
         doNothing().when(reviewDeleteService).deleteReview(anyLong(), anyLong());
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/1/reviews/1")
                 .accept(MediaType.APPLICATION_JSON_VALUE))
@@ -71,7 +71,7 @@ public class ReviewServiceControllerTest {
     }
 
     @Test
-    public void addReview() throws Exception {
+    public void addReviewTest() throws Exception {
         Review review = new Review(1, "Test product", 4, 2, new Date());
         when(reviewInsertService.addReview(anyLong(), any(Review.class))).thenReturn(review);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/2/reviews")
@@ -79,5 +79,16 @@ public class ReviewServiceControllerTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void updateReviewTest() throws Exception {
+        Review review = new Review(1, "Test product", 4, 2, new Date());
+        doNothing().when(reviewInsertService).updateReview(anyLong(), any(Review.class));
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/2/reviews/1")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(new Gson().toJson(review)))
+                .andExpect(status().isOk());
     }
 }
