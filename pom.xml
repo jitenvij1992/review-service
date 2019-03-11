@@ -75,6 +75,10 @@
             <version>2.8.5</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.hateoas</groupId>
+            <artifactId>spring-hateoas</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

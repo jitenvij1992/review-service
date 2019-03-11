@@ -18,4 +18,9 @@ public class ReviewDetailServiceImpl implements ReviewDetailService {
     public List<Review> getAllReviews(long productId) {
         return reviewDetailRepository.findAllByProductId(productId);
     }
+
+    @Override
+    public List<Review> getAllReviews() {
+        return reviewDetailRepository.findAll();
+    }
 }

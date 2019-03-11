@@ -48,11 +48,36 @@ public class ReviewServiceController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Review found in inventory")
     })
+    @GetMapping(value = "/reviews", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Review>> getAllReviews() {
+        logger.info("Received request to get reviews ");
+        return ResponseEntity.ok(reviewDetailService.getAllReviews());
+    }
+
+    @ApiOperation(value = "Get all reviews", notes = "This will be used to get all the reviews from inventory based on the product Id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Review found in inventory")
+    })
     @GetMapping(value = "/{productId}/reviews", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Review>> getReviews(@PathVariable long productId) {
         logger.info("Received request to get reviews having product id: {}", productId);
         return ResponseEntity.ok(reviewDetailService.getAllReviews(productId));
     }
+
+    //hateoas-example
+//    @ApiOperation(value = "Get all reviews", notes = "This will be used to get all the reviews from inventory based on the product Id")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 200, message = "Review found in inventory")
+//    })
+//    @GetMapping(value = "/{productId}/reviews", produces = "application/hal+json")
+//    public ResponseEntity getReviews(@PathVariable long productId) {
+//        logger.info("Received request to get reviews having product id: {}", productId);
+//        List<Review> reviews = reviewDetailService.getAllReviews(productId);
+//        Link link =linkTo(methodOn(ReviewServiceController.class).getReviews(productId)).withRel("reviews");
+//        Resources<Review> result = new Resources<>(reviews,link);
+//        System.out.println(result);
+//        return ResponseEntity.ok(result);
+//    }
 
     @ApiOperation(value = "Insert new reviews", notes = "This will be used to add reviews in inventory")
     @ApiResponses(value = {
