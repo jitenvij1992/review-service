@@ -97,7 +97,7 @@ public class ReviewServiceController {
             @ApiResponse(code = 400, message = "Invalid ID supplied")
     })
     @PutMapping(value = "/{productId}/reviews/{reviewId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> updateReview(@PathVariable("productId") long productId, @PathVariable("reviewId") long reviewId, @Valid @RequestBody ReviewDTO review, Errors errors) {
+    public ResponseEntity<String> updateReview(@PathVariable("productId") long productId, @PathVariable("reviewId") long reviewId, @Valid @RequestBody ReviewDTO review, @ApiIgnore Errors errors) {
         logger.info("Received request to update the review having product id {}, review id {} and payload {}", productId, reviewId, review);
         if (errors.hasErrors()) {
             return new ResponseEntity<>(createErrorString(errors), HttpStatus.BAD_REQUEST);
@@ -118,7 +118,7 @@ public class ReviewServiceController {
     public ResponseEntity deleteReview(@PathVariable("productId") long productId, @PathVariable("reviewId") long reviewId) {
         logger.info("Received request to delete the review having product id {} and review id {}", productId, reviewId);
         reviewDeleteService.deleteReview(reviewId, productId);
-        return ResponseEntity.ok("Successfully deleted review.");
+        return ResponseEntity.noContent().build();
     }
 
     private String createErrorString(Errors errors) {
