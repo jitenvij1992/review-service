@@ -28,7 +28,7 @@ public class ReviewDeleteServiceImplTest {
     @MockBean
     ReviewDeleteRepository reviewDeleteRepository;
     @Captor
-    ArgumentCaptor<Long> acLong;
+    ArgumentCaptor<Long> argumentCaptorForReview;
 
     @Test
     public void deleteReview() {
@@ -36,8 +36,8 @@ public class ReviewDeleteServiceImplTest {
         when(reviewDeleteRepository.findByIdAndProductId(anyLong(), anyLong())).thenReturn(java.util.Optional.of(review));
         doNothing().when(reviewDeleteRepository).deleteByIdAndProductId(anyLong(), anyLong());
         reviewDeleteService.deleteReview(1, 1);
-        verify(reviewDeleteRepository, times(1)).deleteByIdAndProductId(acLong.capture(), acLong.capture());
-        List allValues = acLong.getAllValues();
+        verify(reviewDeleteRepository, times(1)).deleteByIdAndProductId(argumentCaptorForReview.capture(), argumentCaptorForReview.capture());
+        List allValues = argumentCaptorForReview.getAllValues();
         assertEquals(2, allValues.size());
     }
 

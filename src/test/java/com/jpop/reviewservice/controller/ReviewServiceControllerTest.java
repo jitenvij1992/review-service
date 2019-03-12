@@ -17,7 +17,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -48,7 +47,7 @@ public class ReviewServiceControllerTest {
 
     @Before
     public void setUp() {
-        reviews = Arrays.asList(new Review(1, "Test product", 4, 1, new Date()),
+        reviews = List.of(new Review(1, "Test product", 4, 1, new Date()),
                 new Review(2, "Test product", 1, 1, new Date()));
     }
 

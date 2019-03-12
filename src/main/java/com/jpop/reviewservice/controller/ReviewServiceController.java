@@ -44,15 +44,6 @@ public class ReviewServiceController {
         this.reviewDeleteService = reviewDeleteService;
     }
 
-    @ApiOperation(value = "Get all reviews", notes = "This will be used to get all the reviews from inventory based on the product Id")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Review found in inventory")
-    })
-    @GetMapping(value = "/reviews", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Review>> getAllReviews() {
-        logger.info("Received request to get reviews ");
-        return ResponseEntity.ok(reviewDetailService.getAllReviews());
-    }
 
     @ApiOperation(value = "Get all reviews", notes = "This will be used to get all the reviews from inventory based on the product Id")
     @ApiResponses(value = {
