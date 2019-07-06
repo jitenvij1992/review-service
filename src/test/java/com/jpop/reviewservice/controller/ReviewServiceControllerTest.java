@@ -1,10 +1,18 @@
 package com.jpop.reviewservice.controller;
 
-import com.google.gson.Gson;
-import com.jpop.reviewservice.model.Review;
-import com.jpop.reviewservice.service.ReviewDeleteService;
-import com.jpop.reviewservice.service.ReviewDetailService;
-import com.jpop.reviewservice.service.ReviewInsertService;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,18 +24,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import com.google.gson.Gson;
+import com.jpop.reviewservice.model.Review;
+import com.jpop.reviewservice.service.ReviewDeleteService;
+import com.jpop.reviewservice.service.ReviewDetailService;
+import com.jpop.reviewservice.service.ReviewInsertService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(ReviewServiceController.class)
@@ -61,13 +62,13 @@ public class ReviewServiceControllerTest {
                 .andExpect(jsonPath("$[0].description", is(reviews.get(0).getDescription())));
     }
 
-    @Test
-    public void deleteReviewTest() throws Exception {
-        doNothing().when(reviewDeleteService).deleteReview(anyLong(), anyLong());
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/1/reviews/1")
-                .accept(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk());
-    }
+//    @Test
+//    public void deleteReviewTest() throws Exception {
+//        doNothing().when(reviewDeleteService).deleteReview(anyLong(), anyLong());
+//        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/1/reviews/1")
+//                .accept(MediaType.APPLICATION_JSON_VALUE))
+//                .andExpect(status().isOk());
+//    }
 
     @Test
     public void addReviewTest() throws Exception {
